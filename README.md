@@ -1,5 +1,7 @@
 ## libmnk
 
+![Build](https://github.com/mnk400/libmnk/workflows/Python%20package/badge.svg)
+
 Collection of self written python tools, utilities and abstractions I use often packaged in a module for ease of use. Package is still WIP.
 
 ### Utilities/Tools included so far
