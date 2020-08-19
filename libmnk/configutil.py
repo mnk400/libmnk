@@ -25,7 +25,7 @@ class configutil(object):
         self.parser = configparser.ConfigParser()
         self.filepath = path_param                      
         #Path to the configuration file from current Dir
-        self.configLoaded = False                                                
+        self.configLoaded = False                                               
 
     def getValue(self, section_str, key_str):
         '''
