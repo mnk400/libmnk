@@ -1,10 +1,10 @@
 import paho.mqtt.client as mqtt
 import logging
+import sys
 from time import sleep
 
 # Get a logger
-logging.getLogger("awm-logger")
-
+logging.getLogger("mqttlogger")
 
 class client(object):
     '''
@@ -30,7 +30,9 @@ class client(object):
         logging.info("Connected MQTT")
 
     def on_message(self, client, userdata, message):
-        logging.info("New MQTT message" + str(message.payload.decode()))
+        msg = str(message.payload.decode())
+        logging.info("New MQTT message" + msg)
+        return msg
 
     def on_disconnect(self, client, userdata, rc):
         logging.info("Disconnected MQTT")
@@ -56,3 +58,39 @@ class client(object):
         logging.info("Publishing a MQTT message")
         self.mqtt.publish(self.topic, data)
         return True
+
+if __name__ == "__main__":
+    port = 1883
+    host = None
+    topic = None
+    payload = None
+    mode = None
+    
+    args = sys.argv
+    i = 0
+
+    while i<len(args):
+        if args[i] == "-s":
+            mode = "send"
+        if args[i] == "-sub":
+            mode = "sub"
+
+        if args[i] == "-h":
+            host = str(args[i+1])
+        if args[i] == "-t":
+            topic = str(args[i+1])
+        if args[i] == "-p":
+            port = int(args[i+1])
+        if args[i] == "-m":
+            payload = str(args[i+1])
+        
+        i+=1
+    
+    if mode == "send":
+        mqt = client(host, port, topic)
+        mqt.connectMqtt()
+        sleep(0.2)
+        mqt.publishData(payload)
+    
+    elif mode == "sub":
+        print("sub mode")
