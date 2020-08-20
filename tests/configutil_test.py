@@ -2,7 +2,8 @@ import unittest
 
 from libmnk import configutil
 class ConfigUtilTest(unittest.TestCase):
-	'''
+	''' 
+	python -m unittest discover -v -s
 	Unittest for the ConfigUtil
 	'''
 	def setUp(self):
